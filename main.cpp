@@ -12,6 +12,7 @@ void MyGlDraw(void)
 //-----------------------------------------------------------------------------
 int main(int argc, char **argv)
 {
+	printExample2();
 	// Inicializações.
 	InitOpenGL(&argc, argv);
 	InitCallBacks();
