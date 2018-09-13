@@ -12,7 +12,8 @@ void MyGlDraw(void)
 //-----------------------------------------------------------------------------
 int main(int argc, char **argv)
 {
-	printExample2();
+	example_testPipeline();
+
 	// Inicializações.
 	InitOpenGL(&argc, argv);
 	InitCallBacks();

@@ -17,19 +17,23 @@ typedef struct
 
 class Objeto
 {
+	bool matrixed;
+
 	public:
 	Objeto()
 	{
+		matrixed = false;
 		model.setIdentity();
 	}
 	Objeto(const std::string &file_name)
 	{
+		matrixed = false;
 		model.setIdentity();
 		loadMesh(file_name);
 	}
 
-	vector<Vertice> vertices;
-	Matrix4f model;
+	vector<Vertice> vertices; // Guardamos os vertices
+	Matrix4f model; // Por conveniência, guardamos a model de cada objeto carregado.
 
 	// file_name contém o nome do arquivo a ser carregado
 	int loadMesh(const std::string &file_name)
@@ -60,6 +64,9 @@ class Objeto
 				for (unsigned int vertex_id = 0; vertex_id < mesh_ptr->mNumVertices; vertex_id += 3)
 				{
 					const aiVector3D *vertex_ptr = &mesh_ptr->mVertices[vertex_id];
+
+					// Nesta implementação, estou usando a biblioteca Eigen.
+
 					// glm::dvec3 v0{vertex_ptr[0].x, vertex_ptr[0].y, vertex_ptr[0].z};
 					// glm::dvec3 v1{vertex_ptr[1].x, vertex_ptr[1].y, vertex_ptr[1].z};
 					// glm::dvec3 v2{vertex_ptr[2].x, vertex_ptr[2].y, vertex_ptr[2].z};
@@ -79,5 +86,4 @@ class Objeto
 		}
 		return EXIT_SUCCESS;
 	}
-
 };
