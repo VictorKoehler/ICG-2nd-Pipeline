@@ -68,6 +68,8 @@ struct Triangle
 void PutPixel(ColoredPoint cp)
 {
     // Calculamos o offset do pixel
+    if (cp.p.x >= IMAGE_WIDTH || cp.p.x < 0 || cp.p.y >= IMAGE_HEIGHT || cp.p.y < 0)
+        return;
     unsigned int offset = 4*cp.p.x + 4*cp.p.y*IMAGE_WIDTH;
 
     // Preenchemos com as cores adequadas.

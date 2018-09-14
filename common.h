@@ -1,7 +1,3 @@
-#include <assimp/Importer.hpp> 	   // C++ importer interface
-#include <assimp/scene.h>          // Output data structure
-#include <assimp/postprocess.h>    // Post processing flags
-
 #include <eigen-folder/Eigen/Dense> // Númerico
 #include <bits/stdc++.h>
 

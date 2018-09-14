@@ -1,7 +1,3 @@
-#include <assimp/Importer.hpp> 	   // C++ importer interface
-#include <assimp/scene.h>          // Output data structure
-#include <assimp/postprocess.h>    // Post processing flags
-
 #include <eigen-folder/Eigen/Dense> // Númerico
 #include <bits/stdc++.h>
 
@@ -39,7 +35,6 @@ class Espaco
         }
 		return r;
 	}
-
 
 	/*
 		Posiciona a câmera apontada com a direção indicada.
@@ -139,7 +134,7 @@ void example_testProjection()
 /*
 	Pequeno teste do pipeline, com base no arquivo disponibilizado pelo professor.
 */
-void example_testPipeline()
+Espaco example_testPipeline()
 {
 	Espaco e;
 
@@ -157,4 +152,5 @@ void example_testPipeline()
 	//cout << e.viewport << endl << endl << e.projection << endl << endl << e.view << endl << endl;
 
 	cout << e.pipeline << endl;
+	return e;
 }

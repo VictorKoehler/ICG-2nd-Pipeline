@@ -19,19 +19,26 @@ class Objeto
 {
 	bool matrixed;
 
+	void init()
+	{
+		matrixed = false;
+		model.setIdentity();
+		preferredColor.r = preferredColor.g = preferredColor.b = 255;
+	}
+
 	public:
 	Objeto()
 	{
-		matrixed = false;
-		model.setIdentity();
+		init();
 	}
+
 	Objeto(const std::string &file_name)
 	{
-		matrixed = false;
-		model.setIdentity();
+		init();
 		loadMesh(file_name);
 	}
 
+	Color preferredColor;
 	vector<Vertice> vertices; // Guardamos os vertices
 	Matrix4f model; // Por conveniência, guardamos a model de cada objeto carregado.
 
