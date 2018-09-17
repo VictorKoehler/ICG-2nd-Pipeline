@@ -9,6 +9,10 @@ using Eigen::MatrixXf;
 using namespace std;
 
 
+
+
+
+
 Vector4f toHomogeneous(Vector3f v)
 {
 	return (Vector4f() << v, 1).finished();
@@ -150,60 +154,4 @@ Matrix4f createTranslationMatrix_3dv(Vector3f v)
 	// Vector4f yv(0, 1, 0, y);
 	// Vector4f zv(0, 0, 1, z);
 	// return createTransposedBasis(xv, yv, zv);
-}
-
-
-
-
-
-
-
-
-
-
-
-
-/*
-	Teste de Criação de Base.
-*/
-void example_printBasis1()
-{
-	Vector3f x(1.0, 2.0, 3.0);
-	Vector3f y(4, 5, 6);
-	Vector3f z(7, 8, 9);
-	cout << createTransposedBasis(x, y, z) << endl;
-}
-
-/*
-	Teste de Criação de Base.
-*/
-void example_printBasis2()
-{
-	Vector4f x(1, 0, 0, 2);
-	Vector4f y(0, 1, 0, 3);
-	Vector4f z(0, 0, 1, 4);
-	cout << createTransposedBasis_4dv(x, y, z) << endl;
-}
-
-/*
-	Teste das diferentes implementações da translação.
-	Deve imprimir 3 matrizes iguais.
-*/
-void example_printTranslate()
-{
-	Vector4f v4(2, 3, 4, 1);
-	Vector3f v3(2, 3, 4);
-	cout 	<< createTranslationMatrix(v4) << endl << endl
-		 	<< createTranslationMatrix_3dv(v3) << endl << endl
-			<< createTranslationMatrix(2, 3, 4) << endl;
-}
-
-/*
-	Teste das diferentes implementações da translação.
-	Deve imprimir 3 matrizes iguais.
-*/
-void example_printScaleTest()
-{
-	Vector4f v(2, 3, 4, 1);
-	cout << createScaleMatrix(v) << endl << endl;
 }

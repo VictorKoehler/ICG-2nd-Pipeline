@@ -15,11 +15,11 @@ using namespace std;
 
 
 
-class Espaco
+class SpaceContainer
 {
 	public: // who cares?
 
-	vector<Objeto> objetos;
+	vector<ObjectModel> objects;
 	Matrix4f view, projection, viewport, pipeline;
 
 
@@ -27,11 +27,11 @@ class Espaco
 	/*	Carrega um objeto no espaço. */
 	int loadObject(const std::string &file_name)
 	{
-        Objeto o;
+        ObjectModel o;
         int r = o.loadMesh(file_name);
         if (r == EXIT_SUCCESS)
         {
-            objetos.push_back(o);
+            objects.push_back(o);
         }
 		return r;
 	}
@@ -100,57 +100,13 @@ class Espaco
 	{
 		pipeline = viewport * projection * view;
 	}
+
+
+	void invalidateAllObjects()
+	{
+		for (vector<ObjectModel>::iterator it = objects.begin(); it != objects.end(); it++)
+		{
+			it->invalidatePreComputedMatrix(pipeline, true);
+		}
+	}
 };
-
-/*
-	Pequeno teste da matriz View, com base no arquivo disponibilizado pelo professor:
-	camera_pos    = [1.3; 2.1; 2.5];  # Posicao da camera no universo.
-	camera_lookat = [0; 0; 0];  # Ponto para onde a camera esta olhando.
-	camera_up     = [0; 1; 0];  # 'up' da camera no espaco do universo.
-*/
-void example_testCamera()
-{
-	Vector3f pos(1.3, 2.1, 2.5);
-	Vector3f lookat(0, 0, 0);
-	Vector3f up(0, 1, 0);
-
-	Espaco e;
-	e.buildCameraByLookAt(pos, lookat, up);
-
-	cout << e.view << endl;
-}
-
-/*
-	Pequeno teste da matriz Projection, com d = 1;
-*/
-void example_testProjection()
-{
-	Espaco e;
-	e.buildProjectionMatrix(1);
-
-	cout << e.projection << endl;
-}
-
-/*
-	Pequeno teste do pipeline, com base no arquivo disponibilizado pelo professor.
-*/
-Espaco example_testPipeline()
-{
-	Espaco e;
-
-	Vector3f pos(1.3, 2.1, 2.5);
-	Vector3f lookat(0, 0, 0);
-	Vector3f up(0, 1, 0);
-	e.buildCameraByLookAt(pos, lookat, up);
-
-	e.buildProjectionMatrix(1);
-
-	e.buildViewportMatrix(512, 512);
-
-	e.buildPipeline();
-
-	//cout << e.viewport << endl << endl << e.projection << endl << endl << e.view << endl << endl;
-
-	cout << e.pipeline << endl;
-	return e;
-}
