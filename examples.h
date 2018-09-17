@@ -203,6 +203,37 @@ void buildMonkeyExample(SpaceContainer *e)
 	e->invalidateAllObjects();
 }
 
+/*
+	MyGlDraw sugerido do exemplo.
+*/
+void MonkeyExample_MyGlDraw(SpaceContainer* e)
+{
+	(e->objects.end() - 1)->model *= createRotationAboutXMatrix(0.01);
+	(e->objects.end() - 1)->invalidatePreComputedMatrix(e->pipeline, false);
+}
+
+
+
+/*
+	Constrói o exemplo de importação da esfera.
+*/
+void buildSphereExample(SpaceContainer *e)
+{
+	buildMonkeyExample(e);
+	e->objects.pop_back();
+	e->loadObject("Esfera.obj");
+	e->invalidateAllObjects();
+}
+
+/*
+	MyGlDraw sugerido do exemplo.
+*/
+void SphereExample_MyGlDraw(SpaceContainer* e)
+{
+	(e->objects.end() - 1)->model *= createRotationAboutXMatrix(0.01) * createRotationAboutYMatrix(0.01);
+	(e->objects.end() - 1)->invalidatePreComputedMatrix(e->pipeline, false);
+}
+
 
 
 
@@ -289,4 +320,13 @@ void buildCubeExample(SpaceContainer *e)
 	e->objects.push_back(o);
 
 	e->invalidateAllObjects();
+}
+
+/*
+	MyGlDraw sugerido do exemplo.
+*/
+void CubeExample_MyGlDraw(SpaceContainer* e)
+{
+	(e->objects.end() - 1)->model *= createRotationAboutXMatrix(0.01);
+	(e->objects.end() - 1)->invalidatePreComputedMatrix(e->pipeline, false);
 }
