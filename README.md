@@ -86,11 +86,12 @@ Como a classe atua como um espaço universal + câmera, os seguintes métodos mo
 
 <p align="center">
 	<br>
-	<img src="images/macaco-opengl.png"/ >
+	<img src="images/macaco-opengl.png" />
 	<h5 align="center">monkey_head2.obj: Renderizado neste projeto e no OpenGL, respectivamente.</h5>
-	<br>
-	<br>
-	<img src="images/esfera-opengl.png"/ >
+</p>
+<br /><br />
+<p align="center">
+	<img src="images/esfera-opengl.png" />
 	<h5 align="center">Esfera.obj: Renderizado neste projeto e no OpenGL, respectivamente.</h5>
 	<br>
 </p>
