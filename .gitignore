@@ -1,6 +1,9 @@
 cgprog
 /cgprog
 ./cgprog
+opengl_test
+/opengl_test
+./opengl_test
 .vscode
 /.vscode
 ./.vscode

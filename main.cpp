@@ -10,11 +10,23 @@
 
 
 Scene e;
+char example = 0;
 
 void MyGlDraw(void)
 {
 	clear(0, 0, IMAGE_WIDTH - 1, IMAGE_HEIGHT - 1);
-	SphereExample_MyGlDraw(&e);
+	switch (example)
+	{
+		case 's':
+			SphereExample_MyGlDraw(&e);
+			break;
+		case 'm':
+			MonkeyExample_MyGlDraw(&e);
+			break;
+		case 'c':
+			CubeExample_MyGlDraw(&e);
+			break;
+	}
 	drawFreezedPreComputedSpace(e);
 	//drawSpace(e);
 }
@@ -22,6 +34,32 @@ void MyGlDraw(void)
 //-----------------------------------------------------------------------------
 int main(int argc, char **argv)
 {
+	if (argc > 1)
+	{
+		if (argv[1][1] == 'h')
+			printf("%s -[h|s|m|c]\n   Where:\n"
+			"   h: This help\n"
+			"   s: Sphere example\n"
+			"   m: Monkey example\n"
+			"   c: Cube example\n",
+			argv[0]);
+		else
+		{
+			example = argv[1][1];
+			switch (example)
+			{
+				case 's':
+					buildSphereExample(&e);
+					break;
+				case 'm':
+					buildMonkeyExample(&e);
+					break;
+				case 'c':
+					buildCubeExample(&e);
+					break;
+			}
+		}
+	}
 	// Inicializações.
 	InitOpenGL(&argc, argv);
 	InitCallBacks();
@@ -29,8 +67,6 @@ int main(int argc, char **argv)
 
 	// Ajusta a função que chama as funções do mygl.h
 	DrawFunc = MyGlDraw;
-
-	buildSphereExample(&e);
 
 	// Framebuffer scan loop.
 	glutMainLoop();

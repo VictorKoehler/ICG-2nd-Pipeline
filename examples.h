@@ -19,6 +19,8 @@ using namespace std;
 
 
 
+bool doNotRotate = false;
+
 
 /*
 	Teste de Criação de Base.
@@ -156,6 +158,9 @@ void insertAxisLines(Scene *e, float x, float y, float z)
 
 /*
 	Constrói o exemplo de importação do macaco.
+	Câmera: Posição = (1.4, 1, 2.2)
+			LookAt  = (0, 0, 0)
+			Up 		= (0, 1, 0)
 */
 void buildMonkeyExample(Scene *e)
 {
@@ -171,7 +176,7 @@ void buildMonkeyExample(Scene *e)
 
 	e->buildPipeline();
 
-	insertAxisLines(e, x, 2*y, z);
+	//insertAxisLines(e, x, 2*y, z);
 	/*
 	ObjectModel o3;
 	v.v0 = v.v1 = Vector4f(0.1, 0.1, 0.1, 1);
@@ -214,7 +219,8 @@ void buildMonkeyExample(Scene *e)
 void MonkeyExample_MyGlDraw(Scene* e)
 {
 	// Rotaciona o macaco.
-	(e->objects.end() - 1)->model *= createRotationAboutXMatrix(0.01);
+	if (!doNotRotate)
+		(e->objects.end() - 1)->model *= createRotationAboutXMatrix(0.01);
 
 	// Atualiza a matriz cache do pipeline do macaco.
 	(e->objects.end() - 1)->invalidatePreComputedMatrix(e->pipeline, false);
@@ -246,7 +252,8 @@ void buildSphereExample(Scene *e)
 */
 void SphereExample_MyGlDraw(Scene* e)
 {
-	(e->objects.end() - 1)->model *= createRotationAboutXMatrix(0.01) * createRotationAboutYMatrix(0.01);
+	if (!doNotRotate)
+		(e->objects.end() - 1)->model *= createRotationAboutXMatrix(0.01) * createRotationAboutYMatrix(0.01);
 
 	// Atualiza a matriz cache do pipeline do cubo.
 	(e->objects.end() - 1)->invalidatePreComputedMatrix(e->pipeline, false);
@@ -348,6 +355,7 @@ void buildCubeExample(Scene *e)
 */
 void CubeExample_MyGlDraw(Scene* e)
 {
-	(e->objects.end() - 1)->model *= createRotationAboutXMatrix(0.01);
+	if (!doNotRotate)
+		(e->objects.end() - 1)->model *= createRotationAboutXMatrix(0.01) * createRotationAboutYMatrix(0.01);
 	(e->objects.end() - 1)->invalidatePreComputedMatrix(e->pipeline, false);
 }

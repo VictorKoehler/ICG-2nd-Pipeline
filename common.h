@@ -8,51 +8,10 @@ using Eigen::Matrix4f;
 using Eigen::MatrixXf;
 using namespace std;
 
-Vector4f toHomogeneous(Vector3f v)
-{
-	return (Vector4f() << v, 1).finished();
-}
 
-Vector4f toHomogeneous(Vector3f v, float d)
-{
-	return (Vector4f() << v, d).finished();
-}
+Vector4f toHomogeneous(Vector3f v);
 
-/*
-	Cria uma instância de uma matriz tal que: [ x, y, z, (0; 0; 0; 1) ], sendo x, y, z vetores coluna.
-*/
-Matrix4f createBasis(Vector3f x, Vector3f y, Vector3f z)
-{
-	Matrix4f m4;
-	m4 << toHomogeneous(x, 0), toHomogeneous(y, 0), toHomogeneous(z, 0), (Vector4f() << 0, 0, 0, 1).finished();
-	return m4;
-}
 
-/*
-	Transpõe uma chamada a createBasis(x, y, z).
-*/
-Matrix4f createTransposedBasis(Vector3f x, Vector3f y, Vector3f z)
-{
-	return createBasis(x, y, z).transpose();
-}
-
-/*
-	Cria uma instância de uma matriz tal que: [ x, y, z, (0; 0; 0; 1) ], sendo x, y, z vetores coluna.
-*/
-Matrix4f createBasis_4dv(Vector4f x, Vector4f y, Vector4f z)
-{
-	Matrix4f m4;
-	m4 << x, y, z, (Vector4f() << 0, 0, 0, 1).finished();
-	return m4;
-}
-
-/*
-	Transpõe uma chamada a createBasis(x, y, z).
-*/
-Matrix4f createTransposedBasis_4dv(Vector4f x, Vector4f y, Vector4f z)
-{
-	return createBasis_4dv(x, y, z).transpose();
-}
 
 /*
 	Obtém uma matriz de translação dados x, y, z, w.
@@ -185,4 +144,68 @@ Matrix4f createRotationAboutZMatrix(double angle)
 			0, 0, 1, 0,
 			0, 0, 0, 1)
 		.finished();
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*
+	Implementações comuns mas pouco usuais.
+*/
+
+Vector4f toHomogeneous(Vector3f v)
+{
+	return (Vector4f() << v, 1).finished();
+}
+
+Vector4f toHomogeneous(Vector3f v, float d)
+{
+	return (Vector4f() << v, d).finished();
+}
+
+/*
+	Cria uma instância de uma matriz tal que: [ x, y, z, (0; 0; 0; 1) ], sendo x, y, z vetores coluna.
+*/
+Matrix4f createBasis(Vector3f x, Vector3f y, Vector3f z)
+{
+	Matrix4f m4;
+	m4 << toHomogeneous(x, 0), toHomogeneous(y, 0), toHomogeneous(z, 0), (Vector4f() << 0, 0, 0, 1).finished();
+	return m4;
+}
+
+/*
+	Transpõe uma chamada a createBasis(x, y, z).
+*/
+Matrix4f createTransposedBasis(Vector3f x, Vector3f y, Vector3f z)
+{
+	return createBasis(x, y, z).transpose();
+}
+
+/*
+	Cria uma instância de uma matriz tal que: [ x, y, z, (0; 0; 0; 1) ], sendo x, y, z vetores coluna.
+*/
+Matrix4f createBasis_4dv(Vector4f x, Vector4f y, Vector4f z)
+{
+	Matrix4f m4;
+	m4 << x, y, z, (Vector4f() << 0, 0, 0, 1).finished();
+	return m4;
+}
+
+/*
+	Transpõe uma chamada a createBasis(x, y, z).
+*/
+Matrix4f createTransposedBasis_4dv(Vector4f x, Vector4f y, Vector4f z)
+{
+	return createBasis_4dv(x, y, z).transpose();
 }
