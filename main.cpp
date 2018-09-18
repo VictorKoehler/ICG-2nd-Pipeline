@@ -1,4 +1,4 @@
-#include "main_extensions.h"
+#include "pipeline_extensions.h"
 
 
 #include <eigen-folder/Eigen/Dense> // Númerico
@@ -9,7 +9,7 @@
 //-----------------------------------------------------------------------------
 
 
-SpaceContainer e;
+Scene e;
 
 void MyGlDraw(void)
 {

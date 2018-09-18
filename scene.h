@@ -1,7 +1,7 @@
 #include <eigen-folder/Eigen/Dense> // Númerico
 #include <bits/stdc++.h>
 
-#include "objetos.h"
+#include "objectmodel.h"
 #include "common.h"
 
 
@@ -15,16 +15,37 @@ using namespace std;
 
 
 
-class SpaceContainer
+class Scene
 {
 	public: // who cares?
+	/*
+		Construtor padrão.
+	*/
+	Scene()
+	{
+		view = Matrix4f::Identity();
+		projection = Matrix4f::Identity();
+		viewport = Matrix4f::Identity();
+		pipeline = Matrix4f::Identity();
+	}
+
+	Scene(Vector3f camera_position, Vector3f camera_lookAt, Vector3f camera_up,
+		float camera_dist, int screen_width, int screen_height)
+	{
+		buildCameraByLookAt(camera_position, camera_lookAt, camera_up);
+		buildProjectionMatrix(camera_dist);
+		buildViewportMatrix(screen_width, screen_height);
+		buildPipeline();
+	}
 
 	vector<ObjectModel> objects;
 	Matrix4f view, projection, viewport, pipeline;
 
 
 
-	/*	Carrega um objeto no espaço. */
+	/*
+		Carrega um objeto no espaço.
+	*/
 	int loadObject(const std::string &file_name)
 	{
         ObjectModel o;

@@ -6,7 +6,7 @@
 #ifndef HEADER_GUARD_ESPACO
 #define HEADER_GUARD_ESPACO
 
-#include "espaco.h"
+#include "scene.h"
 
 #endif
 
@@ -51,13 +51,25 @@ inline void drawObject(ObjectModel o, Matrix4f mVPV)
     }
 }
 
-void drawSpace(SpaceContainer e)
+
+/*
+	Desenha na tela o espaço especificado.
+	Este método apenas percorre todos os objetos do espaço, chamando drawObject.
+*/
+void drawSpace(Scene e)
 {
 	for (vector<ObjectModel>::iterator itb = e.objects.begin(); itb != e.objects.end(); itb++)
 	{
         drawObject(*itb, e.pipeline * itb->model);
 	}
 }
+
+
+
+
+
+
+
 
 inline Point toPoint(Eigen::DenseCoeffsBase<MatrixXf> c)
 {
@@ -68,7 +80,14 @@ inline Point toPoint(Eigen::DenseCoeffsBase<MatrixXf> c)
 }
 
 
-void drawFreezedPreComputedSpace(SpaceContainer e)
+/*
+	Desenha na tela um espaço na qual todos os vértices já tenham passado pela fase de processamento,
+	isto é, possuem, cada um, a matriz precomputed calculada.
+	Isto é especialmente útil quando a câmera está parada e nem todos os objetos estão se movendo,
+	reduzindo a carga de redesenhar toda a tela.
+	Consulte MonkeyExample_MyGlDraw e SphereExample_MyGlDraw para exemplo de implementação e referência.
+*/
+void drawFreezedPreComputedSpace(Scene e)
 {
 	for (vector<ObjectModel>::iterator itb = e.objects.begin(); itb != e.objects.end(); itb++)
 	{

@@ -31,19 +31,30 @@ Este projeto está dividido conceitualmente da seguinte forma:
 - pipeline.m, pipeline2.m: Material de apoio fornecido pelo docente (modificado).
 - Esfera.obj, monkey_head2.obj: Material usado como exemplo. Origem: Blender<sup>[1]</sup>
 - main.cpp: Inicialização
-- main_extensions.h: Componente comunicante entre Framework de rasterização <-> Pipeline+Espaco
+- pipeline_extensions.h: Componente comunicante entre Framework de rasterização <-> Pipeline+Espaco
 - common.h: Contém algumas implementações comuns a várias partes do projeto, especificamente, contém métodos para gerar matrizes bem conhecidas, como as transformações e bases.
-- espaco.h: Contém a classe SpaceContainer, responsável parcial do Pipeline (view, projection, viewport), bem como armazena os objetos da cena. Atua como se fosse um "universo".
-- objetos.h: Representa um objeto (modelo), contendo os vértices e a matriz Model.
+- scene.h: Contém a classe Scene, responsável parcial do Pipeline (view, projection, viewport), bem como armazena os objetos da cena. Atua como se fosse um "universo".
+- objectmodel.h: Representa um objeto (modelo), contendo os vértices e a matriz Model.
+- examples.h: Contém os exemplos de implementação e importação.
 
 <br /> <br />
 
 ---
 
-## Funcionamento / Instruções de uso
+## Funcionamento
+O projeto é constituido de três partes principais + extensões e exemplos:
+Fundamentalmente, é necessário instanciar um objeto do tipo Scene, o qual conterá os objetos (modelos) da "*cena*" bem como a configuração do espaço e da câmera (Pipeline). Recomenda-se, pelo menos como referência, o uso do segundo construtor da classe, isto é, `Scene(Vector3f camera_position, Vector3f camera_lookAt, Vector3f camera_up, float camera_dist, int screen_width, int screen_height)`, pela praticidade e clareza do mesmo. A classe ainda dispõe de métodos construtores das matrizes do Pipeline, bem como de um método de carregamento de objetos.
+A classe ObjectModel contém todos os objetos visíveis, sendo formada por um conjunto de vértices de triângulos, bem como contém a matriz Model (individual ao objeto).
+Note que para importar um modelo de um arquivo é possível usar o método `int loadObject(const std::string &file_name)` da classe Scene, que por sua vez adiciona automaticamente tal objeto em seu escopo.
+Além disso, um importante detalhe na implementação dessas classes é a exposição do nível de acesso das matrizes (Model, no caso de ObjectModel; View, Projection e Viewport no caso de Scene) e de seus containers (Vector de Vertice, no caso de ObjectModel; Vector de ObjectModel, no caso de Scene), possibilitando acesso direto e otimizado dessas propriedades.
+Por fim, o arquivo examples.h contém diversos trechos de código, incluindo testes das implementações.
 
+<br /> <br />
+
+---
 
 ## Detalhes e Especificação de Implementação
+
 
 
 ## Resultados
@@ -51,6 +62,7 @@ Este projeto está dividido conceitualmente da seguinte forma:
 
 
 ## Experimentos
+
 
 
 ## Referências

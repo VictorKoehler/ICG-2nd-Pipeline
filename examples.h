@@ -5,7 +5,7 @@
 #ifndef HEADER_GUARD_ESPACO
 #define HEADER_GUARD_ESPACO
 
-#include "espaco.h"
+#include "scene.h"
 
 #endif
 
@@ -80,7 +80,7 @@ void example_testCamera()
 	Vector3f lookat(0, 0, 0);
 	Vector3f up(0, 1, 0);
 
-	SpaceContainer e;
+	Scene e;
 	e.buildCameraByLookAt(pos, lookat, up);
 
 	cout << e.view << endl;
@@ -91,7 +91,7 @@ void example_testCamera()
 */
 void example_testProjection()
 {
-	SpaceContainer e;
+	Scene e;
 	e.buildProjectionMatrix(1);
 
 	cout << e.projection << endl;
@@ -100,9 +100,9 @@ void example_testProjection()
 /*
 	Pequeno teste do pipeline, com base no arquivo disponibilizado pelo professor.
 */
-SpaceContainer example_testPipeline()
+Scene example_testPipeline()
 {
-	SpaceContainer e;
+	Scene e;
 
 	Vector3f pos(1.3, 2.1, 2.5);
 	Vector3f lookat(0, 0, 0);
@@ -128,7 +128,7 @@ SpaceContainer example_testPipeline()
 		nas cores vermelho, verde e azul respectivamente.
 	Os parâmetros do tipo float descrevem o tamanho da linha desenhada no eixo.
 */
-void insertAxisLines(SpaceContainer *e, float x, float y, float z)
+void insertAxisLines(Scene *e, float x, float y, float z)
 {
 	Vertex v;
 	v.v0 = v.v1 = Vector4f(0, 0, 0, 1);
@@ -157,7 +157,7 @@ void insertAxisLines(SpaceContainer *e, float x, float y, float z)
 /*
 	Constrói o exemplo de importação do macaco.
 */
-void buildMonkeyExample(SpaceContainer *e)
+void buildMonkeyExample(Scene *e)
 {
 	double x = 1.4, y = 1, z = 2.2, l = 2;
 	Vector3f pos(x, y, z);
@@ -204,12 +204,23 @@ void buildMonkeyExample(SpaceContainer *e)
 }
 
 /*
-	MyGlDraw sugerido do exemplo.
+	MyGlDraw sugerido do exemplo do macaco.
+	Neste exemplo, apenas a figura do macaco permanece girando, enquanto os demais objetos,
+	isto é, as linhas dos eixos coordenados, bem como a câmera, permanecem estáticos.
+	Este método tira proveito desta configuração e ignora os cálculos destas linhas,
+	usando apenas uma matriz do pipeline guardada como "cache" destes objetos,
+	enquanto atualiza a matriz (todo o pipeline) apenas do macaco.
 */
-void MonkeyExample_MyGlDraw(SpaceContainer* e)
+void MonkeyExample_MyGlDraw(Scene* e)
 {
+	// Rotaciona o macaco.
 	(e->objects.end() - 1)->model *= createRotationAboutXMatrix(0.01);
+
+	// Atualiza a matriz cache do pipeline do macaco.
 	(e->objects.end() - 1)->invalidatePreComputedMatrix(e->pipeline, false);
+
+	// Esta prática evita a chamada do seguinte método.
+	//e->invalidateAllObjects();
 }
 
 
@@ -217,7 +228,7 @@ void MonkeyExample_MyGlDraw(SpaceContainer* e)
 /*
 	Constrói o exemplo de importação da esfera.
 */
-void buildSphereExample(SpaceContainer *e)
+void buildSphereExample(Scene *e)
 {
 	buildMonkeyExample(e);
 	e->objects.pop_back();
@@ -226,12 +237,22 @@ void buildSphereExample(SpaceContainer *e)
 }
 
 /*
-	MyGlDraw sugerido do exemplo.
+	MyGlDraw sugerido do exemplo do cubo.
+	Neste exemplo, apenas a figura do cubo permanece girando, enquanto os demaimacacomacacos objetos,
+	isto é, as linhas dos eixos coordenados, bem como a câmera, permanecem estáticos.
+	Este método tira proveito desta configuração e ignora os cálculos destas linhas,
+	usando apenas uma matriz do pipeline guardada como "cache" destes objetos,
+	enquanto atualiza a matriz (todo o pipeline) apenas do cubo.
 */
-void SphereExample_MyGlDraw(SpaceContainer* e)
+void SphereExample_MyGlDraw(Scene* e)
 {
 	(e->objects.end() - 1)->model *= createRotationAboutXMatrix(0.01) * createRotationAboutYMatrix(0.01);
+
+	// Atualiza a matriz cache do pipeline do cubo.
 	(e->objects.end() - 1)->invalidatePreComputedMatrix(e->pipeline, false);
+
+	// Esta prática evita a chamada do seguinte método.
+	//e->invalidateAllObjects();
 }
 
 
@@ -291,7 +312,7 @@ float cube[] = {
 /*
 	Constrói o mesmo cubo do exemplo do material fornecido pelo docente, pipeline.m
 */
-void buildCubeExample(SpaceContainer *e)
+void buildCubeExample(Scene *e)
 {
 	Vector3f pos(1.3, 2.1, 2.5);
 	Vector3f lookat(0, 0, 0);
@@ -325,7 +346,7 @@ void buildCubeExample(SpaceContainer *e)
 /*
 	MyGlDraw sugerido do exemplo.
 */
-void CubeExample_MyGlDraw(SpaceContainer* e)
+void CubeExample_MyGlDraw(Scene* e)
 {
 	(e->objects.end() - 1)->model *= createRotationAboutXMatrix(0.01);
 	(e->objects.end() - 1)->invalidatePreComputedMatrix(e->pipeline, false);
