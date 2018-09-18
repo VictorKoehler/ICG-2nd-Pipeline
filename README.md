@@ -108,7 +108,7 @@ Consulte opengl_test.cpp para a execução dos exemplos no OpenGL. (Esfera e Mac
 <p align="center">
 	<br>
 	<img src="images/experimento-loucuras.png"/ >
-	<h5 align="center">monkey_head2.obj: Renderizado neste projeto e no OpenGL, respectivamente.</h5>
+	<h5 align="center">Experimento de alteração direta nas matrizes do Pipeline. Detalhes abaixo:</h5>
 	<br>
 </p>
 
