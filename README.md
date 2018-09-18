@@ -84,10 +84,47 @@ Como a classe atua como um espaço universal + câmera, os seguintes métodos mo
 
 ## Resultados
 
+<p align="center">
+	<br>
+	<img src="images/macaco-opengl.png"/ >
+	<h5 align="center">monkey_head2.obj: Renderizado neste projeto e no OpenGL, respectivamente.</h5>
+	<br>
+	<br>
+	<img src="images/esfera-opengl.png"/ >
+	<h5 align="center">Esfera.obj: Renderizado neste projeto e no OpenGL, respectivamente.</h5>
+	<br>
+</p>
+
+Consulte main.cpp para a execução dos exemplos do Pipeline do projeto. (Cubo, Esfera e Macaco)
+
+Consulte opengl_test.cpp para a execução dos exemplos no OpenGL. (Esfera e Macaco)
+
+<br /> <br />
 
 
 ## Experimentos
 
+<p align="center">
+	<br>
+	<img src="images/experimento-loucuras.png"/ >
+	<h5 align="center">monkey_head2.obj: Renderizado neste projeto e no OpenGL, respectivamente.</h5>
+	<br>
+</p>
+
+```c++
+e.view *= createScaleMatrix(1.3, 1.1, 1, 0.4);
+e.viewport *= createRotationAboutYMatrix(0.7);
+e.buildPipeline();
+e.invalidateAllObjects();
+```
+
+<br /> <br />
+
+## Dificuldades Encontradas
+<!-- Das war Einfach -->
+Pode-se apontar, como principal ponto de dificuldade, a escassez de documentação e literatura de fácil acesso e compreensão sobre os temas e ferramentas usadas.
+
+<br /> <br /> <br />
 
 
 ## Referências

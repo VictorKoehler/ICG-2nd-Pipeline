@@ -19,7 +19,7 @@ using namespace std;
 
 
 
-bool doNotRotate = false;
+bool doNotRotate = false, doNotDrawAxis = false;
 
 
 /*
@@ -176,7 +176,8 @@ void buildMonkeyExample(Scene *e)
 
 	e->buildPipeline();
 
-	//insertAxisLines(e, x, 2*y, z);
+	if (!doNotDrawAxis)
+		insertAxisLines(e, x, 2*y, z);
 	/*
 	ObjectModel o3;
 	v.v0 = v.v1 = Vector4f(0.1, 0.1, 0.1, 1);
@@ -332,7 +333,8 @@ void buildCubeExample(Scene *e)
 
 	e->buildPipeline();
 
-	insertAxisLines(e, 3, 3, 3);
+	if (!doNotDrawAxis)
+		insertAxisLines(e, 3, 3, 3);
 
 
 	ObjectModel o;

@@ -37,15 +37,22 @@ int main(int argc, char **argv)
 	if (argc > 1)
 	{
 		if (argv[1][1] == 'h')
-			printf("%s -[h|s|m|c]\n   Where:\n"
+		{
+			printf("%s -[h|s|m|c][r][a]\n   Where:\n"
 			"   h: This help\n"
 			"   s: Sphere example\n"
 			"   m: Monkey example\n"
-			"   c: Cube example\n",
+			"   c: Cube example\n"
+			"   r: (Optional)Do not Rotate Examples (if this letter is present)\n"
+			"   a: (Optional)Draw Line Axis (if this letter is present)\n",
 			argv[0]);
+			return 0;
+		}
 		else
 		{
 			example = argv[1][1];
+			doNotRotate = (argv[1][2] == 'r');
+			doNotDrawAxis = !(argv[1][2] == 'a' || (argv[1][2] != '\0' && argv[1][3] == 'a'));
 			switch (example)
 			{
 				case 's':
@@ -60,6 +67,12 @@ int main(int argc, char **argv)
 			}
 		}
 	}
+	// e.view *= createScaleMatrix(1.3, 1.1, 1, 0.4);
+	// e.viewport *= createRotationAboutYMatrix(0.7);
+	// e.buildPipeline();
+	// e.invalidateAllObjects();
+
+
 	// Inicializações.
 	InitOpenGL(&argc, argv);
 	InitCallBacks();
