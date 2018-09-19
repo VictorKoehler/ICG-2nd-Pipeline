@@ -106,7 +106,7 @@ class Scene
 
 		Matrix4f invertY = createScaleMatrix(1, -1, 1);
 		Matrix4f translateToOrigin = createTranslationMatrix(1, 1, 0);
-		Matrix4f fitScreen = createScaleMatrix(w/2.0, h/2.0, 1);
+		Matrix4f fitScreen = createScaleMatrix((w-1)/2.0, (h-1)/2.0, 1);
 
 		//cout << invertY << endl << endl << translateToOrigin << endl << endl << fitScreen << endl << endl;
 
